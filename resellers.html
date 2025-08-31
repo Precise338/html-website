@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PreciseSoftware - Reseller Program</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00ffff;
+            --primary-dark: #00cccc;
+            --secondary: #3ae1ff;
+            --accent: #0095ff;
+            --white: #ffffff;
+            --black: #000000;
+            --dark-bg: #0a0a0a;
+            --darker-bg: #070707;
+            --card-bg: #151515;
+            --card-hover: #1a1a1a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #aaaaaa;
+            --gradient: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--darker-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Header - Matching Home Page */
+        header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .more-dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: var(--card-bg);
+            min-width: 200px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            transform: translateY(10px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .more-dropdown:hover .dropdown-content {
+            display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .dropdown-content a {
+            color: var(--text-primary);
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 255, 255, 0.1);
+            padding-left: 20px;
+        }
+
+        .dropdown-content a i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: var(--black);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 255, 255, 0.1);
+        }
+
+        /* Hero Section - Matching Home Page */
+        .hero {
+            padding: 8rem 2rem 5rem;
+            background: radial-gradient(circle at top right, rgba(58, 225, 255, 0.1), transparent 30%),
+                        radial-gradient(circle at bottom left, rgba(0, 149, 255, 0.1), transparent 30%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(45deg, var(--dark-bg) 0%, transparent 70%),
+                linear-gradient(135deg, var(--darker-bg) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--white), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .benefit-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .benefit-card:hover::before {
+            animation: shine 1.5s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            background: var(--card-hover);
+            border-color: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .benefit-card:hover .benefit-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(0, 255, 255, 0.2);
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .benefit-card p {
+            color: var(--text-secondary);
+        }
+
+        /* Plans Section */
+        .plans {
+            padding: 6rem 2rem;
+            background: var(--darker-bg);
+        }
+
+        .plans-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .plans-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .plan-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(0, 149, 255, 0.1));
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .plan-card:hover::before {
+            opacity: 1;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 255, 255, 0.2);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .plan-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary-dark);
+            color: var(--black);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+        }
+
+        .plan-content {
+            padding: 1.8rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+        }
+
+        .plan-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .plan-subtitle {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .plan-price {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .plan-features {
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .plan-feature i {
+            color: var(--primary);
+        }
+
+        .plan-cta {
+            margin-top: auto;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.2);
+            z-index: 1;
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            padding: 0 20px;
+        }
+
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--card-bg);
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 25px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .step:hover .step-number {
+            background: var(--primary);
+            color: var(--black);
+            transform: scale(1.1);
+            box-shadow: 极 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        .step h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15极;
+            color: var(--white);
+        }
+
+        .step p {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 2rem;
+            background: var(--darker-bg);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 50px auto 0;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .faq-question {
+            padding: 20px 30px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .极aq-question i {
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 20px 30px;
+            max-height: 300px;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            background: linear-gradient(45deg, rgba(10, 10, 10, 0.9), rgba(7, 7, 7, 0.9)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%23070707"/><path d="M极 50L100 50M50 0L50 100" stroke="%2300cccc" stroke-width="0.5" opacity="0.2"/></svg>');
+            background-size: cover;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+
+        .cta-container {
+           极ax-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta h2 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .cta p {
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+        }
+
+        /* Footer - Matching Home Page */
+        footer {
+            background: var(--darker-bg);
+            padding: 5rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+        }
+
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-bottom {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            color: var(--text-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            font-size: 0.9rem;
+        }
+
+        .designer-credit {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .designer-credit:hover {
+            background: rgba(0, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border: 1px solid var(--primary);
+            border-radius: 15px;
+            padding: 2.5rem;
+            width: 350px;
+            max-width: 90%;
+            position: relative;
+            transform: scale(0.9);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+            transform: rotate(90deg);
+        }
+
+        .modal h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .modal ul {
+            list-style: none;
+        }
+
+        .modal ul li {
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal ul i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        .modal a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .modal a:hover {
+            color: var(--primary);
+        }
+
+        /* animations/effects */
+        @keyframes shine {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.7);
+            }
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 极 0 10px rgba(0, 255, 255, 0);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(0, 255, 255, 0);
+            }
+        }
+
+        .animate {
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6极;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .steps {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .steps::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .benefits-grid, .plans-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1.5rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero, .benefits, .plans, .how-it-works, .faq, .cta {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+极           }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            footer {
+                padding: 50px 20px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .benefits-grid, .plans极rid {
+                grid-template-columns: 1fr;
+            }
+            
+            .plan-card, .benefit-card {
+                padding: 25px 20px;
+            }
+            
+            .step {
+                padding: 0 10px;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header - Matching Home Page -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-text">Precise Software</div>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="products.html">Products</a>
+                <a href="status.html">Status</a>
+                <a href="resellers.html">Resellers</a>
+                <div class="more-dropdown">
+                    <a href="#">More <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="media-services.html"><i class="fas fa-key"></i> Media-Services (Free Keys)</a>
+                        <a href="support.html"><i class="fas fa-headset"></i> Support</a>
+                        <a href="faq.html"><i class="fas fa-question-circle"></i> FAQ</a>
+                    </div>
+                </div>
+            </nav>
+            
+            <div class="nav-actions">
+                <a href="products.html" class="极tn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content animate">
+            <h1>Reseller Program</h1>
+            <p>Join our exclusive reseller program and start your own business with our premium software solutions. Earn profits while providing top-tier services to your clients.</p>
+            <div class="hero-cta">
+                <a href="#plans" class="btn btn-primary animate delay-2 pulse">
+                    <i class="fas fa-arrow-right"></i> View Reseller Plans
+                </a>
+                <a href="https://discord.gg/precise" target="_blank" class="btn btn-secondary animate delay-2">
+                    <i class="fab fa-discord"></i> Join Our Discord
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits">
+        <div class="section-header animate">
+            <h2>Why Become a Reseller?</h2>
+            <p>Our reseller program offers exclusive benefits to help you build a successful business</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card animate delay-1">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>High Profit Margins</h3>
+                <p>Earn substantial profits with our competitive pricing structure and exclusive reseller discounts.</p>
+            </div>
+            <div class="benefit-card animate delay-2">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Priority Support</h3>
+                <p>Get dedicated 24/7 support with faster response times to ensure your business runs smoothly.</p>
+            </div>
+            <div class="benefit-card animate delay-3">
+                <div class="benefit-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h3>Exclusive Features</h3>
+                <p>Access premium features and early updates before they're released to the general public.</p>
+            </div>
+            <div class="benefit-card animate delay-4">
+                <div class="benefit-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <h3>Community Access</h3>
+                <p>Join our exclusive reseller community to network, share tips, and grow your business.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plans Section -->
+    <section class="plans" id="plans">
+        <div class="section-header animate">
+            <h2>Reseller Plans</h2>
+            <p>Choose the plan that best fits your business needs</p>
+        </div>
+        <div class="plans-container">
+            <div class="plans-grid">
+                <div class="plan-card animate delay-1">
+                    <div class="plan-badge">
+                        <i class="fas fa-check-circle"></i> Popular
+                    </div>
+                    <div class="plan-content">
+                        <h3 class="plan-title">Temporary HWID Virtualizer</h3>
+                        <div class="plan-subtitle">Rebrand + Panel Access</div>
+                        <div class="plan-price">250€ <span>Lifetime</span></div>
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Panel access & Bot Access
+                            </div>
+                            <div class="plan-feature">
+                                <极 class="fas fa-check-circle"></i> Premium Features
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Own Custom Loader with your Branding
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> 24/7 Reseller Priority Support
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Generate unlimited Keys
+                            </div>
+                        </div>
+                        <div class="plan-cta">
+                            <a href="https://discord.gg/precise" target="_blank" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan-card animate delay-2">
+                    <div class="plan-content">
+                        <h3 class="plan-title">Permanent HWID Virtualizer</h3>
+                        <div class="plan-subtitle">Rebrand + Panel Access</div>
+                        <div class="plan-price">250€ <span>Lifetime</span></div>
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Panel access & Bot Access
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Premium Features
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Own Custom Loader with your Branding
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> 24/7 Reseller Priority Support
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Generate unlimited Keys
+                            </div>
+                        </div>
+                        <div class="plan-cta">
+                            <a href="https://discord.gg/precise" target="_blank" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan-card animate delay-3">
+                    <div class="plan-content">
+                        <h3 class="plan-title">Single Key Purchase</h3>
+                        <div class="plan-subtitle">Custom Coupon code for our Website</div>
+                        <div class="plan-price">80€</div>
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> 50% off for our Products on our Website
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Premium Features
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> 24/7 Reseller Priority Support
+                            </div>
+                        </div>
+                        <div class="plan-cta">
+                            <a href="https://discord.gg/precise" target="_blank" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="plan-card animate delay-4">
+                    <div class="plan-badge">
+                        <i class="fas fa-check-circle"></极> Custom
+                    </div>
+                    <div class="plan-content">
+                        <h3 class="plan-title">Bulk Key Purchase</h3>
+                        <div class="plan-subtitle">Bulk key Purchase</div>
+                        <div class="plan-price">Custom Pricing</极>
+                        <div class="plan-features">
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> 10+ Keys = 50% off your whole purchase
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Premium Features
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> 24/7 Reseller Priority Support
+                            </div>
+                            <div class="plan-feature">
+                                <i class="fas fa-check-circle"></i> Customized solutions for your needs
+                            </div>
+                        </div>
+                        <div class="plan-cta">
+                            <a href="https://discord.gg/precise" target="_blank" class="btn btn-primary">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+        <div class="section-header animate">
+            <h2>How It Works</h2>
+            <p>Become a reseller in just a few simple steps</p>
+        </div>
+        <div class="steps">
+            <div class="step animate delay-1">
+                <div class="step-number">1</div>
+                <h3>Choose Your Plan</h3>
+                <p>Select the reseller plan that best fits your business model and goals.</p>
+            </div>
+            <div class="step animate delay-2">
+                <div class="step-number">2</div>
+                <h3>Complete Purchase</h3>
+                <p>Purchase your chosen plan through our secure payment system.</p>
+            </div>
+            <div class="step animate delay-3">
+                <div class="step-number">3</div>
+                <h3>Get Access</h3>
+                <p>Receive your reseller panel access and setup instructions.</p>
+            </div>
+            <div class="step animate delay-4">
+                <div class="step-number">4</div>
+                <h3>Start Selling</h3>
+                <p>Begin selling to your customers and watch your business grow.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="section-header animate">
+            <h2>Frequently Asked Questions</h2>
+            <p>Find answers to common questions about our reseller program</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item animate delay-1">
+                <div class极="faq-question">
+                    <span>How quickly can I start selling after purchasing a plan?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can start selling immediately after purchase. Once your payment is confirmed, you'll receive instant access to your reseller panel and can begin generating keys right away.</p>
+                </div>
+            </div>
+            <div class="faq-item animate delay-2">
+                <div class="faq-question">
+                    <span>What kind of support do resellers receive?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Our resellers receive priority 24/7 support through our dedicated Discord channel. You'll get faster response times and specialized assistance for any issues related to your reseller business.</p>
+                </div>
+            </div>
+            <div class="faq-item animate delay-3">
+                <div class="faq-question">
+                    <span>Can I upgrade my plan later?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, you can upgrade your plan at any time. Contact our support team, and they'll help you transition to a higher-tier plan with the appropriate pricing adjustments.</p>
+                </div>
+            </div>
+            <div class="faq-item animate delay-4">
+                <div class="faq-question">
+                    <span>Is there a limit to how many keys I can generate?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>No, there's no limit. Our reseller plans allow you to generate unlimited keys for the products included in your plan.</p>
+                </div>
+            </div>
+            <div class="faq-item animate delay-1">
+                <div class="faq-question">
+                    <span>How do I receive updates for the products?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </极>
+                <div class="faq-answer">
+                    <p>All product updates are automatically available in your reseller panel. You'll also receive notifications in our Discord server whenever new updates are released.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container animate">
+            <h2>Ready to Start Your Reseller Journey?</h2>
+            <p>Join our reseller program today and start building your business with premium software solutions.</p>
+            <a href="https://discord.gg/precise" target="_blank" class="btn btn-primary pulse">Become a Reseller</a>
+        </div>
+    </section>
+
+    <!-- Footer - Matching Home Page -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Precise Software</极>
+                <p>Providing premium gaming solutions with cutting-edge technology and unparalleled performance.</p>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Products</h3>
+                <ul>
+                    <li><a href="products.html">BO6 Internal</a></li>
+                    <li><a href="products.html">Perm Spoofer</a></li>
+                    <li><a href="products.html">Temp Spoofer</a></li>
+                    <li><a href="products.html">Fortnite</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href极support.html">Support</a></li>
+                    <li><a href="status.html">Status</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="https://discord.gg/precise" target="_blank">Discord</a></极>
+                    <li><a href="https://precise.gitbook.io/spoofer" target="_blank">Guide</a></li>
+                    <li><a href="products.html">License Key</a></li>
+                    <li><a href="products.html">Subscriptions</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>© 2025 Precise Software. All rights reserved.</p>
+            <a href="#" class="designer-credit" id="designerBtn">
+                <i class="fas fa-paint-brush"></i>
+                <span>Designed by Goozz</span>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <button class="modal-close" id="modalClose">&times;</button>
+            <h3>Goozz</h3>
+            <ul>
+                <li><i class="fas fa-user"></i> Name: Goozz</li>
+                <li><i class="fas fa-gem"></i> Web-Design: <a href="https://discord.gg/zk79umEm" target="_blank">Discord Server</a></li>
+                <li><i class="fas fa-cogs"></i> Precise Software: <a href="https://discord.gg/precise" target="_blank">Discord Server</a></li>
+                <li><i class="fas fa-comment-dots"></i> Contact: Discord</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Modal functionality
+        const designerBtn = document.getElementById('designerBtn');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+
+        designerBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        modalClose.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Animation on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const animatedElements = document.querySelectorAll('.animate');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+    </script>
+</body>
+</html>
